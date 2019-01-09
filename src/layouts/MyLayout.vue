@@ -37,14 +37,14 @@
           <q-item-side icon="create_new_folder" />
           <q-item-main label="Cadastro" sublabel="cadastro de jogos" />
         </q-item>
-        <q-item>
+        <q-item to="/jogos">
           <q-item-side icon="videogame_asset" />
           <q-item-main label="Jogos" sublabel="" />
         </q-item>
-        <q-item @click.native="openURL('https://discord.gg/5TDhbDg')">
+        <!-- <q-item @click.native="openURL('https://discord.gg/5TDhbDg')">
           <q-item-side icon="chat" />
           <q-item-main label="Discord Chat Channel" sublabel="https://discord.gg/5TDhbDg" />
-        </q-item>
+        </q-item> -->
       </q-list>
     </q-layout-drawer>
 
