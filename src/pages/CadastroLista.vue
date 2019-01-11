@@ -15,7 +15,6 @@
             <q-icon name="videogame_asset" color="deep-purple-10" size="4em"></q-icon>
             <label class="text-deep-purple-10"> {{item.name}} </label>
           </div>
-         <!--  <q-field icon="videogame_asset" icon-color="dark" dark label="Teste jogo"></q-field> -->
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
 export default {
   listGame: [
     { id: 1, name: 'Jogo do Teste', description: 'Testar a paciência do programador', path: 'jogoVelha' },
-    { id: 1, name: 'Jogo do Teste', description: 'Testar a paciência do programador', path: 'jogoVelha' },
-    { id: 1, name: 'Jogo do Teste', description: 'Testar a paciência do programador', path: 'jogoVelha' },
+    { id: 1, name: 'Jogo do Teste', description: 'Testar a paciência do programador', path: 'jogMemoria' },
+    { id: 1, name: 'Jogo do Teste', description: 'Testar a paciência do programador', path: 'cacaPalavra' },
     { id: 1, name: 'Jogo do Teste', description: 'Testar a paciência do programador', path: 'jogoVelha' },
     { id: 1, name: 'Jogo do Teste', description: 'Testar a paciência do programador', path: 'jogoVelha' },
     { id: 1, name: 'Jogo do Teste', description: 'Testar a paciência do programador', path: 'jogoVelha' },
@@ -13,5 +13,28 @@ export default {
     { id: 1, name: 'Jogo do Teste', description: 'Testar a paciência do programador', path: 'jogoVelha' },
     { id: 1, name: 'Jogo do Teste', description: 'Testar a paciência do programador', path: 'jogoVelha' },
     { id: 1, name: 'Jogo do Teste', description: 'Testar a paciência do programador', path: 'jogoVelha' }
+  ],
+  imagesCute: [
+    {path: require('../../assets/fofas/01.jpg')},
+    {path: require('../../assets/fofas/02.jpg')},
+    {path: require('../../assets/fofas/03.jpg')},
+    {path: require('../../assets/fofas/04.jpg')},
+    {path: require('../../assets/fofas/05.jpg')},
+    {path: require('../../assets/fofas/06.jpg')},
+    {path: require('../../assets/fofas/07.jpg')},
+    {path: require('../../assets/fofas/08.jpg')},
+    {path: require('../../assets/fofas/09.jpg')},
+    {path: require('../../assets/fofas/10.jpg')},
+    {path: require('../../assets/fofas/11.jpg')},
+    {path: require('../../assets/fofas/12.jpg')},
+    {path: require('../../assets/fofas/13.jpg')},
+    {path: require('../../assets/fofas/14.jpg')},
+    {path: require('../../assets/fofas/15.jpg')},
+    {path: require('../../assets/fofas/16.jpg')},
+    {path: require('../../assets/fofas/17.jpg')},
+    {path: require('../../assets/fofas/18.jpg')},
+    {path: require('../../assets/fofas/19.jpg')},
+    {path: require('../../assets/fofas/20.jpg')},
+    {path: require('../../assets/fofas/21.jpg')}
   ]
 }
