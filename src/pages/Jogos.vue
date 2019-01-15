@@ -4,7 +4,7 @@
       <div class="row">
         <div class="displayRow">
           <div class="col-2 displayFlex divGame q-ml-lg q-mr-lg" v-for="(item, index) in list" :key="index">
-            <div class="displayFlex divBtn btnFake q-mt-lg" @click="redirective(item.id)">
+            <div class="displayFlex divBtn btnFake q-mt-lg" @click="redirective(item.path)">
               <q-icon name="videogame_asset" color="deep-purple-10" size="4em"></q-icon>
               <label class="text-deep-purple-10"> {{item.name}} </label>
             </div>
@@ -27,6 +27,13 @@ export default {
   },
   mounted () {
     this.list = this.listGame
+  },
+  methods: {
+    redirective (name) {
+      let pathRote = '/jogo'
+      let rote = {path: `${pathRote}/${name}`}
+      this.$router.push(rote)
+    }
   },
   computed: {
     ...mapState('modulesStore', ['listGame'])

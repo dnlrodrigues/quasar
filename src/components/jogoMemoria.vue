@@ -1,9 +1,10 @@
 <template>
   <div class="container q-ma-lg">
     <div class="default flex">
-        <div class="flex-center img" v-for="(img, index) in list" :key="index" @click="getCard(index)">
+        <div class="flex-center img" :disabled="disabled" v-for="(img, index) in list" :key="index" @click="getCard(index)">
           <img :class="img.class" :src="img.path">
         </div>
+        <q-btn class="q-mt-lg" label="Reiniciar" color="secondary" @click="reload" v-show="disabled"></q-btn>
     </div>
   </div>
 </template>
@@ -17,7 +18,8 @@ export default {
     return {
       listTotal: [],
       list: [],
-      show: false
+      show: false,
+      disabled: false
     }
   },
   mounted () {
@@ -30,25 +32,23 @@ export default {
       for (var i = 0; i < 6; i++) {
         random = Math.floor(Math.random() * this.listTotal.length)
         this.list.push(this.listTotal[random])
-        console.log(random)
         this.listTotal.splice(random, 1)
       }
       temp = JSON.parse(JSON.stringify(this.list))
       for (i = 0; i < 6; i++) {
         random = Math.floor(Math.random() * temp.length)
         this.list.push(temp[random])
-        console.log(random)
         temp.splice(random, 1)
       }
-      /* console.log(this.listTotal)
-      console.log(this.list)
-      console.log(temp) */
     },
     getCard (index) {
+      if (this.disabled) {
+        return
+      }
       this.list[index].class = ''
       this.list[index].show = true
       if (this.show) {
-        let result = this.wasFind(index)
+        var result = this.wasFind(index)
 
         if (result.result) {
           this.list[result.firstCard].find = true
@@ -56,13 +56,33 @@ export default {
         } else {
           this.list[result.firstCard].show = false
           this.list[result.secondCard].show = false
+          var vue = this
           setTimeout(function () {
-            this.list[result.firstCard].class = 'imgHide'
-            this.list[result.secondCard].class = 'imgHide'
-          }, 3000)
+            vue.addClass(result.firstCard, result.secondCard)
+          }, 1000)
         }
       }
       this.show = !this.show
+      if (this.verifyFinished()) {
+        this.disabled = true
+        alert('Você venceu!')
+      }
+    },
+    addClass (firstCard, secondCard) {
+      this.list[firstCard].class = 'imgHide'
+      this.list[secondCard].class = 'imgHide'
+    },
+    verifyFinished () {
+      let finished = true
+      for (var i = 0; i < this.list.length; i++) {
+        if (!this.list[i].find) {
+          finished = false
+        }
+      }
+      return finished
+    },
+    reload () {
+      window.location.reload()
     }
   },
   computed: {
@@ -110,5 +130,27 @@ export default {
   }
   .imgHide{
     opacity: 0;
+  }
+  @media screen and (min-width: 3190px) {
+    .default {
+      width: 50%;
+      margin-left: 25%;
+    }
+  }
+  @media screen and (min-width: 2180px) and (max-width: 3189px) {
+    .default {
+      width: 75%;
+      margin-left: 12.5%;
+    }
+  }
+  @media screen and (max-width: 1100px) {
+    .img {
+      width: 50%;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    .img {
+      width: 100%;
+    }
   }
 </style>
