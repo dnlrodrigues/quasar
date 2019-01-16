@@ -1,9 +1,14 @@
 <template>
   <div class="container q-ma-lg">
-    <div class="default" v-touch-pan="handler">
-      <label class="default text-justify" v-for="(line, index) in list" :key="index"> {{line}} </label>
+    <div class="default flex padding" v-touch-pan.horizontal="handler">
+      <div class="default" v-for="(line, index) in list" :key="index" :disabled="disabled">
+        <label class="space" :class="classAdd(`${line}_${indexLetter}`)" v-for="(letter, indexLetter) in line" :key="indexLetter" :id="`${line}_${indexLetter}`"> {{letter}} </label>
+      </div>
     </div>
-    <q-btn class="q-ma-lg" label="Click" style="background: goldenrod; color: white" @click="getText"></q-btn>
+    <div class="default q-ma-lg">
+      <label class="labelWords q-ma-lg" v-for="(item) in words" :key="item" :class="classLineThrough(item)"> {{item}} </label>
+    </div>
+    <q-btn class="q-ma-lg" label="Reload" style="background: goldenrod; color: white" @click="reload()" v-show="disabled"></q-btn>
   </div>
 </template>
 
@@ -16,7 +21,12 @@ export default {
       alphabet: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
       biggerSize: 0,
       size: 4,
-      list: []
+      list: [],
+      disabled: false,
+      last_id: [],
+      find: '',
+      classLetter: [],
+      classWords: []
     }
   },
   mounted () {
@@ -28,7 +38,6 @@ export default {
     getText () {
       var randomWords = require('random-words')
       this.words = randomWords({exactly: 10, formatter: (word) => word.toUpperCase()})
-      console.log(this.words)
       for (let i = 1; i < this.words.length; i++) {
         this.biggerSize = this.biggerSize > this.words[i].length ? this.biggerSize : this.words[i].length
       }
@@ -49,7 +58,6 @@ export default {
           }
         }
       }
-      console.log(this.list)
     },
     randomListWords () {
       let word, random1, random2
@@ -60,10 +68,37 @@ export default {
         this.words[random1] = this.words[random2]
         this.words[random2] = word
       }
-      console.log(this.words)
     },
     handler (obj) {
-      console.log(obj)
+      let object = obj.evt.path.find(item => item.tagName === 'LABEL')
+      if (!object || this.disabled) {
+        return
+      }
+      let id = object.id
+      if (!this.last_id.includes(id)) {
+        this.find = this.find + object.innerText.trim()
+        this.last_id.push(id)
+      }
+      if (obj.isFinal) {
+        if (!this.words.includes(this.find)) {
+          let arrayId = this.last_id.slice(0)
+          for (let i = 0; i < arrayId.length; i++) {
+            if (!this.classLetter.includes(arrayId[i])) {
+              this.last_id.splice(i, 1)
+            }
+          }
+        } else {
+          this.classLetter = this.last_id.slice(0)
+          this.classWords.push(this.find)
+        }
+        this.find = ''
+        console.log(this.last_id)
+        console.log(this.classLetter)
+      }
+      // console.log(obj)
+    },
+    reload () {
+      window.location.reload()
     }
   },
   computed: {
@@ -81,8 +116,33 @@ export default {
     },
     generateRandom (number) {
       return (number) => Math.floor(Math.random() * number)
+    },
+    classAdd (id) {
+      return (id) => {
+        if (this.classLetter.includes(id)) {
+          return {backYellow: true}
+        } else {
+          return {backYellow: false}
+        }
+      }
+    },
+    classLineThrough (id) {
+      return (id) => {
+        if (this.classWords.includes(id)) {
+          return {lineThrough: true}
+        } else {
+          return {lineThrough: false}
+        }
+      }
     }
-    // npm install random-words npm install --save random-words
+  },
+  watch: {
+    classWords: function (newClass, oldClass) {
+      if (this.classWords.length === this.words.length) {
+        this.disabled = true
+        alert('Você encontrou todas as palavras!!!')
+      }
+    }
   }
 }
 </script>
@@ -92,7 +152,29 @@ export default {
   float: left;
   width: 100%;
 }
-.text-justify{
-  
+.flex{
+  display: flex;
+  flex-direction: row;
+}
+.padding{
+  padding-left: 40%;
+  padding-right: 40%;
+}
+.space {
+  white-space: pre;
+  text-align: justify;
+}
+.labelWords {
+  margin-top: 3%;
+  margin-left: 2%;
+  font-weight: bold;
+}
+.backYellow{
+  background-color: yellow;
+  border: 0.1em solid yellow;
+  border-radius: 0.2em;
+}
+.lineThrough{
+  text-decoration-line: line-through;
 }
 </style>

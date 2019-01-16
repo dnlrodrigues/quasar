@@ -60,7 +60,8 @@ module.exports = function (ctx) {
         'QInput'
       ],
       directives: [
-        'Ripple'
+        'Ripple',
+        'TouchPan'
       ],
       // Quasar plugins
       plugins: [
