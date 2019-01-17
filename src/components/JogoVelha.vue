@@ -44,7 +44,7 @@ export default {
       }
     },
     markChoice (index) {
-      if (this.disabled) {
+      if (this.disabled || !this.selected) {
         return
       }
 

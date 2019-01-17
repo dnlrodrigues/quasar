@@ -1,6 +1,11 @@
 <template>
   <div class="container q-ma-lg">
-    <div class="default flex padding" v-touch-pan.horizontal="handler">
+    <div class="default flex padding" v-touch-pan.horizontal="handler" v-if="$q.platform.is.desktop">
+      <div class="default" v-for="(line, index) in list" :key="index" :disabled="disabled">
+        <label class="space" :class="classAdd(`${line}_${indexLetter}`)" v-for="(letter, indexLetter) in line" :key="indexLetter" :id="`${line}_${indexLetter}`"> {{letter}} </label>
+      </div>
+    </div>
+    <div class="default flex padding" v-touch-pan.noMouse.horizontal="handler" v-if="$q.platform.is.mobile">
       <div class="default" v-for="(line, index) in list" :key="index" :disabled="disabled">
         <label class="space" :class="classAdd(`${line}_${indexLetter}`)" v-for="(letter, indexLetter) in line" :key="indexLetter" :id="`${line}_${indexLetter}`"> {{letter}} </label>
       </div>
