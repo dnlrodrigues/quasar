@@ -81,21 +81,27 @@ export default {
       }
       if (obj.isFinal) {
         if (!this.words.includes(this.find)) {
-          let arrayId = this.last_id.slice(0)
+          /* let arrayId = this.last_id.slice(0)
           for (let i = 0; i < arrayId.length; i++) {
             if (!this.classLetter.includes(arrayId[i])) {
               this.last_id.splice(i, 1)
             }
-          }
+          } */
+          this.last_id = []
         } else {
-          this.classLetter = this.last_id.slice(0)
+          for (let i = 0; i < this.list.length; i++) {
+            if (this.list[i].includes(this.find)) {
+              let position = this.list[i].indexOf(this.find)
+              for (let j = 0; j < this.find.length; j++) {
+                this.classLetter.push(`${this.list[i]}_${position}`)
+                position++
+              }
+            }
+          }
           this.classWords.push(this.find)
         }
         this.find = ''
-        console.log(this.last_id)
-        console.log(this.classLetter)
       }
-      // console.log(obj)
     },
     reload () {
       window.location.reload()
@@ -176,5 +182,16 @@ export default {
 }
 .lineThrough{
   text-decoration-line: line-through;
+}
+@media screen and (max-width: 799px){
+  .padding{
+    padding-left: 20%;
+    padding-right: 0;
+  }
+}
+@media screen and (max-width: 480px){
+  .padding{
+    padding-left: 0%;
+  }
 }
 </style>
